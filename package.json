@@ -5,8 +5,12 @@
   "main": "app-creating-a-node-server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app-creating-a-node-server.js"
+    "start": "nodemon app-creating-a-node-server.js",
+    "start-app": "node app-creating-a-node-server.js"
   },
   "author": "Fernando Parreira",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
 }
