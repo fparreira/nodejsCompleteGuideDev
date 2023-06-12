@@ -1,0 +1,12 @@
+{
+  "name": "nodejs-the-complete-guide-maximilian-schwarzmuller",
+  "version": "1.0.0",
+  "description": "nodejs the complete guide",
+  "main": "app-creating-a-node-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app-creating-a-node-server.js"
+  },
+  "author": "Fernando Parreira",
+  "license": "ISC"
+}

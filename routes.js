@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const requestHandler = (req, resp) => {
+const requestHandler = (req, res) => {
 
     const url = req.url;
     const method = req.method;
@@ -40,4 +40,14 @@ const requestHandler = (req, resp) => {
 
 }
 
-module.exports = requestHandler;
+// module.exports = requestHandler;
+// module.exports = {
+//     handler: requestHandler,
+//     someText: "Some hard code text"
+// };
+
+// module.exports.handler = requestHandler;
+// module.exports.someText = "Some hard code text";
+
+exports.handler = requestHandler;
+exports.someText = "Some hard code text";
