@@ -1,13 +1,14 @@
-// import express
+// import expressjs
 const express = require('express');
+const path = require('path');
+const mainRoutes = require('./routes/index');
 
-// create a express application // instance express
+// instance expressjs
 const app = express();
 
-app.get('/', (req, res, next) => {
-    console.log('express application active');
-    res.send('fernando parreira');
-    next();
-})
+// static folder
+app.use(express.static(path.join(__dirname,'public')));
 
-app.listen(3000);
+app.use(mainRoutes);
+
+app.listen(4000);
