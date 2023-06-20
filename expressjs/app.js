@@ -8,7 +8,7 @@ const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 // import handlebars
-const expressHbs = require('express-handlebars');
+// const expressHbs = require('express-handlebars');
 
 // path
 const path = require('path');
@@ -20,14 +20,16 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // template
-app.engine('hbs', expressHbs({
-        layoutsDir: "views/layouts",
-        defaultLayout: "main-layout",
-        extname: "hbs"
-    })
-); //not built in // initialize handlebars
-app.set('view engine', 'hbs');
+// app.engine('hbs', expressHbs({
+//         layoutsDir: "views/layouts",
+//         defaultLayout: "main-layout",
+//         extname: "hbs"
+//     })
+// ); //not built in // initialize handlebars
+// app.set('view engine', 'hbs');
 // app.set('view engine', 'pug'); // built in
+
+app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 app.use(bodyParser.urlencoded({extended: true}));
