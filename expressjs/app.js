@@ -3,9 +3,10 @@
 // import express js
 const express = require('express');
 
-// admin datas & routes
+// routes
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const siteRoutes = require('./routes/site');
 
 // import handlebars
 // const expressHbs = require('express-handlebars');
@@ -42,15 +43,17 @@ app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 // 404 page not found
-app.use((req, res, next) => {
-    // res.status(404).send("<h1>Page not found</h1>");
-    // res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
-    res.status(404).render('404', {
-            pageTitle: 'Page Not Found',
-            activeShop: false,
-            activeAddProduct: false
-        });
-});
+// app.use((req, res, next) => {
+//     // res.status(404).send("<h1>Page not found</h1>");
+//     // res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+//     res.status(404).render('404', {
+//             pageTitle: 'Page Not Found',
+//             activeShop: false,
+//             activeAddProduct: false,
+//             path: ''
+//         });
+// });
+app.use('/', siteRoutes);
 
 
 // const server = http.createServer(app);
