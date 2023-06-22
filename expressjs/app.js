@@ -6,7 +6,9 @@ const express = require('express');
 // routes
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
-const siteRoutes = require('./routes/site');
+
+// error controller
+const errorController = require('./controllers/error');
 
 // import handlebars
 // const expressHbs = require('express-handlebars');
@@ -53,7 +55,7 @@ app.use(shopRoutes);
 //             path: ''
 //         });
 // });
-app.use('/', siteRoutes);
+app.use(errorController.pageNotFound);
 
 
 // const server = http.createServer(app);

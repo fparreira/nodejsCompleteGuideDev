@@ -1,4 +1,6 @@
-const products = [];
+const Product = require('../models/product');
+
+// const products = [];
 
 exports.getAddProduct = (req, res, next) => {
     // console.log('In middleware product!');
@@ -13,9 +15,12 @@ exports.getAddProduct = (req, res, next) => {
         });
 }
 
-exports.postAddProduct = (req,res, next) => {
+exports.postAddProduct = (req, res, next) => {
     // console.log(req.body);
-    products.push({title : req.body.title});
+    // products.push({title : req.body.title});
+    const product = new Product(req.body.title);
+    product.save();
+
     res.redirect("/");
 }
 
@@ -26,6 +31,9 @@ exports.getProducts = (req, res, next) => {
     // res.sendFile(path.join(rootDir, 'views', 'shop.html'));
     // const products = adminData.products;
     // res.render('shop', {prods: products, pageTitle: "My Shop", path: '/'});
+
+    const products = Product.fetchAll();
+
     res.render('shop', {
         prods: products,
         pageTitle: "My Shop",
@@ -34,4 +42,6 @@ exports.getProducts = (req, res, next) => {
         activeShop: true,
         productCSS: true
     });
+
+    // res.render('shop', products);
 }
