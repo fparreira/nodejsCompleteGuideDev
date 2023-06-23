@@ -21,9 +21,11 @@ module.exports = class Product {
 
             if(!err){
                 products = JSON.parse(fileContent);
+                console.log(products);
             }
 
             products.push(this);
+            console.log(this);
 
             fs.writeFile(p, JSON.stringify(products), (err) => {
                 console.log(err);
