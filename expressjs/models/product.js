@@ -2,12 +2,31 @@
 const fs = require('fs');
 const path = require('path');
 
+const getProductsFromFile = (callback) => {
+    const p = path.join(
+        path.dirname(require.main.filename),
+        'data',
+        'products.json'
+    );
+    
+    fs.readFile(p, (err, fileContent) => {
+        if (err) {
+            callback([]);
+        }
+        else{
+            callback(JSON.parse(fileContent));
+        }
+    });
+    console.log('fechAll function');
+}
+
 module.exports = class Product {
     constructor(t){
         this.title = t;
     }
 
     save(){
+        
         // products.push(this);
         const p = path.join(
             path.dirname(require.main.filename),
@@ -35,22 +54,8 @@ module.exports = class Product {
 
     }
 
-    static fetchAll(callback){
-        const p = path.join(
-            path.dirname(require.main.filename),
-            'data',
-            'products.json'
-        );
-        
-        fs.readFile(p, (err, fileContent) => {
-            if (err) {
-                callback([]);
-            }
-            else{
-                callback(JSON.parse(fileContent));
-            }
-        });
-        console.log('fechAll function');
+    static fetchAll(cb){
+        getProductsFromFile(cb);
     }
 
 }
