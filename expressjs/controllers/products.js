@@ -32,16 +32,19 @@ exports.getProducts = (req, res, next) => {
     // const products = adminData.products;
     // res.render('shop', {prods: products, pageTitle: "My Shop", path: '/'});
 
-    const products = Product.fetchAll();
-
-    res.render('shop', {
-        prods: products,
-        pageTitle: "My Shop",
-        path: '/',
-        hasProducts: products.length > 0,
-        activeShop: true,
-        productCSS: true
+    // const products = Product.fetchAll();
+    Product.fetchAll((products) => {
+        res.render('shop', {
+            prods: products,
+            pageTitle: "My Shop",
+            path: '/',
+            hasProducts: products.length > 0,
+            activeShop: true,
+            productCSS: true
+        });
     });
+
+    console.log('exports getProducts function that will be use on route');
 
     // res.render('shop', products);
 }
