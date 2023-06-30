@@ -22,18 +22,42 @@
 
 // app.listen(3000);
 
-function showNumbers(boolean, arg2, callback){
+function AssynchronousOperation(callback){
 
-    console.log('start asynchronous operation');
+    setTimeout(() => {
+        const value = 10;
+        callback(value);
+    }, 5000);
 
-    const message = 'the message is : ';
-
-    if (boolean) {
-        console.log('success !!' + arg2);
-    } else {
-        console.log('error !!');
-    } 
+    console.log('end of function AssynchronousOperation');
 
 }
 
-showNumbers(true, 'fernando');
+function AssynchronousWithError(simulateError, callback){
+
+    const err = new Error('error on function result!!!!');
+
+    if (simulateError == 0) {
+        callback(err, '');
+    } else {
+        setTimeout( ()=> {
+            const message = 'everything is right !';
+            callback('', message);
+        },5000);
+    }
+
+}
+
+// AssynchronousOperation((arg) => {
+//     console.log('the value is ' + arg);
+// });
+
+AssynchronousWithError(0, (err, msg) => {
+
+    if (err) {
+        console.log('function return error!!!');
+    } else {
+        console.log(msg);
+    }
+    
+});
