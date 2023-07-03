@@ -39,6 +39,8 @@ module.exports = class Product {
         //     'products.json'
         // );
 
+        this.id = Math.random().toString();
+
         getProductsFromFile((products) => {
             products.push(this);            
 
@@ -64,4 +66,12 @@ module.exports = class Product {
         getProductsFromFile(cb);
     }
 
+    static findById(id, callback){        
+
+        getProductsFromFile((products) => {            
+            const product = products.find(p => p.id === id);
+            callback(product);
+        });
+
+    }
 }
