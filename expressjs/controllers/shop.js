@@ -1,7 +1,7 @@
 const Product = require('../models/product');
+const Cart = require('../models/cart');
 
 // const products = [];
-
 
 exports.getProducts = (req, res, next) => {
     // console.log('In the another middleware!');
@@ -47,10 +47,7 @@ exports.getProduct = (req, res, next) => {
 
 };
 
-
-
 exports.getIndex = (req, res, next) => {
-
 
     // const products = Product.fetchAll();
     Product.fetchAll((products) => {
@@ -75,6 +72,11 @@ exports.getCart = (req, res, next) => {
 exports.postCart = (req, res, next) => {
 
     const prodId = req.body.productId;
+
+    Product.findById(prodId, (product) => {
+        Cart.addProduct(prodId, product.price);
+    })
+
     console.log(prodId);
     res.redirect('/cart');
 
