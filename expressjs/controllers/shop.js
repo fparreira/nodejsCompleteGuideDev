@@ -25,19 +25,27 @@ exports.getProducts = (req, res, next) => {
 
     // console.log('exports getProducts function that will be use on route');
     // res.render('shop', products);
-}
+};
 
 exports.getProduct = (req, res, next) => {
 
     const prodId = req.params.productId;
 
     Product.findById(prodId, product => {
-        console.log(product);
+        // console.log(product);
+
+        res.render('shop/product-detail', {
+            product: product,
+            pageTitle: "Product Detail",
+            path: "/products",
+
+        });
+
     });
 
-    res.redirect("/");
+    // res.redirect("/");
 
-}
+};
 
 
 
@@ -53,7 +61,7 @@ exports.getIndex = (req, res, next) => {
         });
     });
 
-}
+};
 
 exports.getCart = (req, res, next) => {
 
@@ -62,7 +70,15 @@ exports.getCart = (req, res, next) => {
         pageTitle: "Your Cart"
     });
 
-}
+};
+
+exports.postCart = (req, res, next) => {
+
+    const prodId = req.body.productId;
+    console.log(prodId);
+    res.redirect('/cart');
+
+};
 
 exports.getOrders = (req, res, next) => {
 
@@ -71,7 +87,7 @@ exports.getOrders = (req, res, next) => {
         pageTitle: "Your Orders"
     });
 
-}
+};
 
 exports.getCheckout = (req, res, next) => {
 
@@ -80,4 +96,4 @@ exports.getCheckout = (req, res, next) => {
         pageTitle: "Checkout"
     });
 
-}
+};
