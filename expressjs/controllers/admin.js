@@ -1,16 +1,10 @@
 const Product = require('../models/product');
 
 exports.getAddProduct = (req, res, next) => {
-    // console.log('In middleware product!');
-    // res.send('<form action="/admin/add-product" method="POST" ><input type="text" name="title"><button type="subtmit">send</button></form>')
-    // res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
-    res.render('admin/add-product', {
-            pageTitle: 'Add Product',
-            path: '/admin/add-product',
-            formsCSS: true,
-            productCSS: true,
-            activeAddProduct: true
-        });
+    res.render('admin/edit-product', {
+        pageTitle: 'Add Product',
+        path: '/admin/add-product'
+    });
 }
 
 exports.postAddProduct = (req, res, next) => {
@@ -27,6 +21,21 @@ exports.postAddProduct = (req, res, next) => {
 
     res.redirect("/");
 }
+
+exports.getEditProduct = (req, res, next) => {
+
+    const productId = req.params.productId;
+    const editMode = req.query.editMode;
+
+    console.log(productId + ' - ' + editMode);
+
+    // res.render('admin/edit-product/', {
+    //     pageTitle: 'Edit Product',
+    //     path: '/admin/edit-product',
+    //     editing: true
+    // });
+}
+
 
 exports.getProducts = (req, res, next) => {
 
