@@ -4,12 +4,6 @@ const Cart = require('../models/cart');
 // const products = [];
 
 exports.getProducts = (req, res, next) => {
-    // console.log('In the another middleware!');
-    // res.send('<h1>Hello from ExpressJs</h1>')
-    // console.log(adminData.products);
-    // res.sendFile(path.join(rootDir, 'views', 'shop.html'));
-    // const products = adminData.products;
-    // res.render('shop', {prods: products, pageTitle: "My Shop", path: '/'});
 
     // const products = Product.fetchAll();
     Product.fetchAll((products) => {
@@ -23,8 +17,6 @@ exports.getProducts = (req, res, next) => {
         });
     });
 
-    // console.log('exports getProducts function that will be use on route');
-    // res.render('shop', products);
 };
 
 exports.getProduct = (req, res, next) => {
@@ -62,10 +54,31 @@ exports.getIndex = (req, res, next) => {
 
 exports.getCart = (req, res, next) => {
 
-    res.render('shop/cart', {
-        path: '/cart',
-        pageTitle: "Your Cart"
+    Cart.getCart(cart => {
+
+        Product.fetchAll(products => {
+            const cartProducts = [];
+            for (product of products) {
+
+                const cartProductData = cart.products.find(prod => prod.id === product.id);
+
+                if (cartProductData) {
+                    cartProducts.push({productData: product, qty: cartProductData.qty});
+                }
+
+            }
+            
+            res.render('shop/cart', {
+                path: '/cart',
+                pageTitle: "Your Cart",
+                products: cartProducts
+            });
+
+        });
+
     });
+
+
 
 };
 
@@ -82,6 +95,22 @@ exports.postCart = (req, res, next) => {
     res.redirect('/cart');
 
 };
+
+exports.postCartDeleteProdut = (req, res, next) => {
+
+    const prodId = req.body.productId;
+
+    Product.findById(prodId, (product) => {
+
+        Cart.deleteProduct(prodId, product.price);
+
+        res.redirect("/cart");
+
+    })
+
+    
+
+}
 
 exports.getOrders = (req, res, next) => {
 
