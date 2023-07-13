@@ -34,6 +34,10 @@ module.exports = class Product {
     }
 
     save(){
+
+        return db.execute('insert into products (title, price, description, imageUrl) values (?, ?, ?, ?)',
+            [this.title, this.price, this.description, this.imageUrl]
+        );
     
         // getProductsFromFile((products) => {
 
@@ -76,6 +80,9 @@ module.exports = class Product {
 
     static fetchAll(){
         // getProductsFromFile(cb);
+
+        return db.execute("select * from products");
+
     }
 
     static findById(id){        
