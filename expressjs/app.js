@@ -16,6 +16,9 @@ const errorController = require('./controllers/error');
 // path
 const path = require('path');
 
+// database
+const db = require('./utils/database');
+
 // bodyparser
 const bodyParser = require('body-parser');
 
@@ -43,6 +46,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 // to use routes
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
+
+
+// db.execute("select * from products")
+//     .then(result => {
+//         console.log(result[0], result[1]);
+//     })
+//     .catch(error => {
+//         console.log(error);
+//     });
 
 // 404 page not found
 // app.use((req, res, next) => {

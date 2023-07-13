@@ -62,7 +62,34 @@
     
 // });
 
-const numbers = [4,6,2,77,43,543,665,23,89,23,65];
+// const numbers = [4,6,2,77,43,543,665,23,89,23,65];
 
 // return the index of element that pass on test
 // console.log(numbers.findIndex(number => number > 30));
+
+const myConnection = new Promise((resolve, reject) => {
+
+    const connection = true;
+
+    setTimeout(() => {
+
+        if (connection) {
+            resolve("success on connection")
+        } else {
+            reject("connection fail !!")
+        }
+
+    }, 3000);
+
+});
+
+myConnection
+    .then(result => {
+        console.log(result);
+    })
+    .then(() => {
+        console.log('list of products');
+    })
+    .catch(error => {
+        console.log(error);
+    })
