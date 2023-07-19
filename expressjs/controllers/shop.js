@@ -27,17 +27,20 @@ exports.getProduct = (req, res, next) => {
 
     const prodId = req.params.productId;
 
-    Product.findById(prodId, product => {
-        // console.log(product);
-
-        res.render('shop/product-detail', {
-            product: product,
-            pageTitle: "Product Detail",
-            path: "/products",
-
+    Product.findById(prodId)
+        .then(([product]) => {
+            console.log(product[0]);
+            res.render('shop/product-detail', {
+                product: product[0],
+                pageTitle: "Product Detail",
+                path: "/products",
+            });
+        })
+        .catch(error => {
+            console.log(error);
         });
 
-    });
+
 
     // res.redirect("/");
 
