@@ -17,7 +17,8 @@ const errorController = require('./controllers/error');
 const path = require('path');
 
 // database
-const db = require('./utils/database');
+const sequelize = require('./utils/database');
+// const db = require('./utils/database');
 
 // bodyparser
 const bodyParser = require('body-parser');
@@ -73,4 +74,12 @@ app.use(errorController.pageNotFound);
 // const server = http.createServer(app);
 // server.listen(3000);
 
-app.listen(3000);
+// sequelize sync 
+sequelize.sync()
+    .then(result => {
+        console.log(result);
+        app.listen(3000);
+    })
+    .catch(error => {
+        console.log(error);
+    });
