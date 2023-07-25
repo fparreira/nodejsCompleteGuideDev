@@ -6,20 +6,36 @@ const Cart = require('../models/cart');
 exports.getProducts = (req, res, next) => {
 
     // const products = Product.fetchAll();
-    Product.fetchAll()
-        .then(([firstElement, secondElement]) => {
-            res.render('shop/products-list', {
-                prods: firstElement,
-                pageTitle: "All Products",
-                path: '/products',
-                hasProducts: firstElement.length > 0,
-                activeShop: true,
-                productCSS: true
-            });
-        })
-        .catch(error => {
-            console.log(error);
+
+    Product.findAll()
+    .then(products => {
+        res.render('shop/products-list', {
+            prods: products,
+            pageTitle: "All Products",
+            path: '/products',
+            hasProducts: products.length > 0,
+            activeShop: true,
+            productCSS: true
         });
+    })
+    .catch(err => {
+        console.log(err);
+    });
+
+    // Product.fetchAll()
+    //     .then(([firstElement, secondElement]) => {
+    //         res.render('shop/products-list', {
+    //             prods: firstElement,
+    //             pageTitle: "All Products",
+    //             path: '/products',
+    //             hasProducts: firstElement.length > 0,
+    //             activeShop: true,
+    //             productCSS: true
+    //         });
+    //     })
+    //     .catch(error => {
+    //         console.log(error);
+    //     });
 
 };
 
@@ -48,18 +64,30 @@ exports.getProduct = (req, res, next) => {
 
 exports.getIndex = (req, res, next) => {
 
-    // const products = Product.fetchAll();
-    Product.fetchAll()
-        .then(([firstElement, secondElement]) => {
+    Product.findAll()
+        .then(products => {
             res.render('shop/index', {
-                prods: firstElement,
+                prods: products,
                 pageTitle: "Shop",
                 path: '/'
             });
         })
-        .catch(error => {
-            console.log(error);
+        .catch(err => {
+            console.log(err);
         });
+
+    // const products = Product.fetchAll();
+    // Product.fetchAll()
+    //     .then(([firstElement, secondElement]) => {
+    //         res.render('shop/index', {
+    //             prods: firstElement,
+    //             pageTitle: "Shop",
+    //             path: '/'
+    //         });
+    //     })
+    //     .catch(error => {
+    //         console.log(error);
+    //     });
 
 };
 
