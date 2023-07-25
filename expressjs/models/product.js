@@ -5,7 +5,7 @@ const sequelize = require('../utils/database');
 const Product = sequelize.define('product', {
     id: {
         type: Sequelize.INTEGER,
-        autoincrement: true,
+        autoIncrement: true,
         allownull: false,
         primaryKey: true
     }, 
@@ -14,7 +14,7 @@ const Product = sequelize.define('product', {
         type: Sequelize.FLOAT,
         allownull: false
     },
-    imgUrl: {
+    imageUrl: {
         type: Sequelize.STRING,
         allownull: false
     },

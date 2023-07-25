@@ -77,7 +77,7 @@ app.use(errorController.pageNotFound);
 // sequelize sync 
 sequelize.sync()
     .then(result => {
-        console.log(result);
+        // console.log(result);
         app.listen(3000);
     })
     .catch(error => {

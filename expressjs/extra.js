@@ -67,29 +67,42 @@
 // return the index of element that pass on test
 // console.log(numbers.findIndex(number => number > 30));
 
-const myConnection = new Promise((resolve, reject) => {
+// const myConnection = new Promise((resolve, reject) => {
 
-    const connection = true;
+//     const connection = true;
 
-    setTimeout(() => {
+//     setTimeout(() => {
 
-        if (connection) {
-            resolve("success on connection")
-        } else {
-            reject("connection fail !!")
+//         if (connection) {
+//             resolve("success on connection")
+//         } else {
+//             reject("connection fail !!")
+//         }
+
+//     }, 3000);
+
+// });
+
+// myConnection
+//     .then(result => {
+//         console.log(result);
+//     })
+//     .then(() => {
+//         console.log('list of products');
+//     })
+//     .catch(error => {
+//         console.log(error);
+//     })
+
+function find_max(nums) {
+    let max_num = Number.NEGATIVE_INFINITY; // smaller than all other numbers
+    for (let num of nums) {
+        if (num > max_num) {
+            max_num = num;
         }
+    }
+return max_num;
+}
 
-    }, 3000);
+console.log(find_max([55,9,8,4,63,46,23,66,77,964,23,6533,776]));
 
-});
-
-myConnection
-    .then(result => {
-        console.log(result);
-    })
-    .then(() => {
-        console.log('list of products');
-    })
-    .catch(error => {
-        console.log(error);
-    })
