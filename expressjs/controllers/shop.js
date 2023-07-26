@@ -43,18 +43,30 @@ exports.getProduct = (req, res, next) => {
 
     const prodId = req.params.productId;
 
-    Product.findById(prodId)
-        .then(([product]) => {
-            console.log(product[0]);
+    Product.findByPk(prodId)
+        .then(result => {
             res.render('shop/product-detail', {
-                product: product[0],
+                product: result,
                 pageTitle: "Product Detail",
                 path: "/products",
             });
         })
-        .catch(error => {
-            console.log(error);
+        .catch(err => {
+            console.log(err);
         });
+
+    // Product.findById(prodId)
+    //     .then(([product]) => {
+    //         console.log(product[0]);
+    //         res.render('shop/product-detail', {
+    //             product: product[0],
+    //             pageTitle: "Product Detail",
+    //             path: "/products",
+    //         });
+    //     })
+    //     .catch(error => {
+    //         console.log(error);
+    //     });
 
 
 
