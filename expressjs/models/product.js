@@ -6,21 +6,21 @@ const Product = sequelize.define('product', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
-        allownull: false,
+        allowNull: false,
         primaryKey: true
     }, 
     title: Sequelize.STRING,
     price: {
         type: Sequelize.FLOAT,
-        allownull: false
+        allowNull: false
     },
     imageUrl: {
         type: Sequelize.STRING,
-        allownull: false
+        allowNull: false
     },
     description: {
         type: Sequelize.TEXT,
-        allownull: false
+        allowNull: false
     }
 
 });
