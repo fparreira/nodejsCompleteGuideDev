@@ -20,6 +20,10 @@ const path = require('path');
 const sequelize = require('./utils/database');
 // const db = require('./utils/database');
 
+// import models
+const Product = require('./models/product');
+const User = require('./models/user');
+
 // bodyparser
 const bodyParser = require('body-parser');
 
@@ -44,10 +48,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 // public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// register a middleware to use the user anywhere in the app
+app.use((req, res, next) => {
+    
+});
+
 // to use routes
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
-
 
 // db.execute("select * from products")
 //     .then(result => {
@@ -70,14 +78,26 @@ app.use(shopRoutes);
 // });
 app.use(errorController.pageNotFound);
 
+Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
+User.hasMany(Product);
 
 // const server = http.createServer(app);
 // server.listen(3000);
 
 // sequelize sync 
+// sequelize.sync({force: true})
 sequelize.sync()
     .then(result => {
-        // console.log(result);
+        return user = User.findByPk(1);
+    })
+    .then(resultUser => {
+        if (!resultUser) {
+            return User.create({name: 'Fernando', email: 'fernando@mail.com'});
+        }
+        return resultUser;
+    })
+    .then(resultUser => {
+        // console.log(resultUser);
         app.listen(3000);
     })
     .catch(error => {
