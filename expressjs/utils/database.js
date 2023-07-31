@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize');
 
 // instance
-const sequelize = new Sequelize('nodecomplete', 'fernando', 'password', {
+const sequelize = new Sequelize('nodecomplete', 'root', 'root', {
     dialect: 'mysql',
     host: 'localhost'
 });

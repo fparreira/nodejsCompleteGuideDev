@@ -50,7 +50,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // register a middleware to use the user anywhere in the app
 app.use((req, res, next) => {
+    User.findByPk(1)
+        .then(result => {
+
+            req.user = result;
+            next();
+
+        })
+        .catch(err => {
+            console.log(err);
+        });
     
+
 });
 
 // to use routes
