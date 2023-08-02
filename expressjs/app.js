@@ -89,6 +89,7 @@ app.use(shopRoutes);
 // });
 app.use(errorController.pageNotFound);
 
+// sequelize associations
 Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
 

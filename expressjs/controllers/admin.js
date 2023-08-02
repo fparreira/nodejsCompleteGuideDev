@@ -17,7 +17,7 @@ exports.postAddProduct = (req, res, next) => {
     const price = req.body.price;
     const description = req.body.description;
 
-    Product.create({
+    req.user.createProduct({ // createProduct special method is automatically created when the association User.hasMany(Product) is set
         title: title,
         imageUrl: imageUrl,
         price: price,
@@ -49,8 +49,14 @@ exports.getEditProduct = (req, res, next) => {
 
     const prodId = req.params.productId;
 
-    Product.findByPk(prodId)
-        .then(result => {
+    req.user.getProducts({where: {id: prodId}}) // getProducts special method is automatically created when the association User.hasMany(Product) is set
+    // Product.findByPk(prodId)
+        .then(results => {
+
+            console.log(results);
+
+            const result = results[0];
+
             if (!result) {
                 return res.redirect("/");
             }
@@ -134,7 +140,8 @@ exports.postDeleteProduct = (req, res, next) => {
 
 exports.getProducts = (req, res, next) => {
 
-    Product.findAll()
+    req.user.getProducts() // getProducts special method is automatically created when the association User.hasMany(Product) is set
+    // Product.findAll()
         .then(result => {
             res.render('admin/products', {
                 prods: result,
