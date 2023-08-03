@@ -23,6 +23,8 @@ const sequelize = require('./utils/database');
 // import models
 const Product = require('./models/product');
 const User = require('./models/user');
+const Cart = require('./models/cart');
+const CartItem = require('./models/cart-item');
 
 // bodyparser
 const bodyParser = require('body-parser');
@@ -92,6 +94,8 @@ app.use(errorController.pageNotFound);
 // sequelize associations
 Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
+Cart.hasMany(Product);
+Product.belongsToMany(Cart, );
 
 // const server = http.createServer(app);
 // server.listen(3000);
