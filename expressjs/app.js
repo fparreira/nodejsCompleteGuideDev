@@ -94,8 +94,11 @@ app.use(errorController.pageNotFound);
 // sequelize associations
 Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
-Cart.hasMany(Product);
-Product.belongsToMany(Cart, );
+
+Cart.belongsTo(User);
+User.hasOne(Cart);
+Cart.belongsToMany(Product, {through: CartItem}); // add cartId on cartitems table
+Product.belongsToMany(Cart, {through: CartItem}); // add prodId on cartitems table
 
 // const server = http.createServer(app);
 // server.listen(3000);
