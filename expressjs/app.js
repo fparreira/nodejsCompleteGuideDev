@@ -95,10 +95,14 @@ app.use(errorController.pageNotFound);
 Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
 User.hasMany(Product);
 
+// cart associations
 Cart.belongsTo(User);
 User.hasOne(Cart);
 Cart.belongsToMany(Product, {through: CartItem}); // add cartId on cartitems table
 Product.belongsToMany(Cart, {through: CartItem}); // add prodId on cartitems table
+
+// order associations
+
 
 // const server = http.createServer(app);
 // server.listen(3000);
@@ -114,6 +118,9 @@ sequelize.sync()
             return User.create({name: 'Fernando', email: 'fernando@mail.com'});
         }
         return resultUser;
+    })
+    .then( resultUser => {
+        // resultUser.createCart();
     })
     .then(resultUser => {
         // console.log(resultUser);
