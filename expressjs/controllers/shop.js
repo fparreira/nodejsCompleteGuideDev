@@ -1,5 +1,4 @@
 const Product = require('../models/product');
-const Cart = require('../models/cart');
 
 // const products = [];
 
@@ -107,7 +106,7 @@ exports.getCart = (req, res, next) => {
 
     req.user.getCart()
         .then(cart => {
-            // console.log(cart);
+            // console.log(cart.getProducts());
             return cart.getProducts()
             .then(products => {
                 res.render('shop/cart', {
@@ -253,6 +252,24 @@ exports.postCartDeleteProdut = (req, res, next) => {
     
 
 }
+
+exports.postOrder = (req, res, next) => {
+    
+    req.user.getCart()
+        .then(cart => {
+            return cart.getProducts();
+        })
+        .then(products => {
+            return req.user.createOrder();
+        })
+        .then(order => {
+            
+        })
+        .catch(err => {
+            console.log(err);
+        })
+
+};
 
 exports.getOrders = (req, res, next) => {
 

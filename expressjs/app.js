@@ -25,7 +25,8 @@ const Product = require('./models/product');
 const User = require('./models/user');
 const Cart = require('./models/cart');
 const CartItem = require('./models/cart-item');
-
+const Order = require('./models/orders');
+const OrderItem = require('./models/order-item');
 // bodyparser
 const bodyParser = require('body-parser');
 
@@ -102,7 +103,10 @@ Cart.belongsToMany(Product, {through: CartItem}); // add cartId on cartitems tab
 Product.belongsToMany(Cart, {through: CartItem}); // add prodId on cartitems table
 
 // order associations
-
+Order.belongsTo(User);
+User.hasMany(Order);
+Order.belongsToMany(Product, {through: OrderItem});
+Product.belongsToMany(Order, {through: OrderItem});
 
 // const server = http.createServer(app);
 // server.listen(3000);
