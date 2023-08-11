@@ -260,10 +260,13 @@ exports.postOrder = (req, res, next) => {
             return cart.getProducts();
         })
         .then(products => {
-            return req.user.createOrder();
-        })
-        .then(order => {
-            
+            return req.user.createOrder()
+                .then(order => {
+                    
+                })
+                .catch(err => {
+                    console.log(err);
+                })
         })
         .catch(err => {
             console.log(err);
