@@ -263,14 +263,16 @@ exports.postOrder = (req, res, next) => {
             return req.user.createOrder()
                 .then(order => {
 
-                    return order.addProducts(products);
+                    // products.map(i => {
+                    //     console.log(i.title + ' - ' + i.cartItem.quantity);
+                    // })                    
 
-                    // return order.addProducts(
-                    //     products.map(products => {
-                    //         product.orderItem = { quantity: product.cartItem.quantity };
-                    //         return product;
-                    //     })
-                    // );
+                    return order.addProducts(
+                        products.map(product => {
+                            product.orderItem = { quantity: product.cartItem.quantity };
+                            return product;
+                        })
+                    );
 
                 })
                 .catch(err => {
