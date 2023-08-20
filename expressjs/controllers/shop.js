@@ -285,6 +285,7 @@ exports.postOrder = (req, res, next) => {
         })
         .then(result => {
 
+            // empty the card after the products go to order
             return fetchedCart.setProducts(null);
             
         })
@@ -299,7 +300,7 @@ exports.postOrder = (req, res, next) => {
 
 exports.getOrders = (req, res, next) => {
 
-    req.user.getOrders()
+    req.user.getOrders({include: ['products']})
     .then(orders => {
         console.log(orders);
 
