@@ -2,6 +2,8 @@
 
 // const sequelize = require('../utils/database');
 
+const mongodb = require('mongodb');
+
 const getDb = require('../utils/database').getDb;
 
 class Product {
@@ -22,6 +24,39 @@ class Product {
         .catch(err => {
             console.log(err);
         });
+    }
+
+    static fetchAll(){
+
+        // access to the database
+        const db = getDb();
+        
+        // use toArray just for few documents (registers)
+        return db.collection('products').find().toArray()
+        .then(products => {
+            // console.log(products);
+            return products;
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+    }
+
+    static findById(prodId){
+
+        const db = getDb();
+
+        return db.collection('products').find({ _id: new mongodb.ObjectId(prodId) }).next()
+        .then(product => {
+            // console.log(product);
+            // console.log('inside product model' + product);
+            return product;
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
     }
 
 

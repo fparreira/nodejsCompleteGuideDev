@@ -45,53 +45,56 @@ exports.postAddProduct = (req, res, next) => {
 
 
 
-// exports.getEditProduct = (req, res, next) => {
+exports.getEditProduct = (req, res, next) => {
 
-//     const editMode = req.query.edit;  
+    const editMode = req.query.edit;  
 
-//     if (!editMode) {
-//         return res.redirect("/");
-//     }
+    if (!editMode) {
+        return res.redirect("/");
+    }
 
-//     const prodId = req.params.productId;
+    const prodId = req.params.productId;
 
-//     req.user.getProducts({where: {id: prodId}}) // getProducts special method is automatically created when the association User.hasMany(Product) is set
-//     // Product.findByPk(prodId)
-//         .then(results => {
+    // console.log(prodId);
 
-//             console.log(results);
+    // req.user.getProducts({where: {id: prodId}}) // getProducts special method is automatically created when the association User.hasMany(Product) is set
+    // Product.findByPk(prodId)
+    Product.findById(prodId)
+        .then(product => {
 
-//             const result = results[0];
+            // console.log(product);
 
-//             if (!result) {
-//                 return res.redirect("/");
-//             }
-//             res.render('admin/edit-product', {
-//                     pageTitle: 'Edit Product',
-//                     path: '/admin/edit-product',
-//                     editing: editMode,
-//                     product: result
-//                 })
-//         })
-//         .catch(err => {
-//             return res.redirect("/");
-//             console.log(err);
-//         })
+            // const result = results[0];
+
+            // if (!result) {
+            //     return res.redirect("/");
+            // }
+            res.render('admin/edit-product', {
+                    pageTitle: 'Edit Product',
+                    path: '/admin/edit-product',
+                    editing: product,
+                    product: result
+                })
+        })
+        .catch(err => {
+            return res.redirect("/");
+            console.log(err);
+        })
 
 
-//     // Product.findById(prodId, (product) => {
-//     //     if (!product) {
-//     //         return res.redirect("/");
-//     //     }
-//     //     res.render('admin/edit-product', {
-//     //         pageTitle: 'Edit Product',
-//     //         path: '/admin/edit-product',
-//     //         editing: editMode,
-//     //         product: product
-//     //     });
-//     // });
+    // Product.findById(prodId, (product) => {
+    //     if (!product) {
+    //         return res.redirect("/");
+    //     }
+    //     res.render('admin/edit-product', {
+    //         pageTitle: 'Edit Product',
+    //         path: '/admin/edit-product',
+    //         editing: editMode,
+    //         product: product
+    //     });
+    // });
 
-// }
+}
 
 // exports.postEditProduct = (req, res, next) => {
 
@@ -144,28 +147,29 @@ exports.postAddProduct = (req, res, next) => {
 // }
 
 
-// exports.getProducts = (req, res, next) => {
+exports.getProducts = (req, res, next) => {
 
-//     req.user.getProducts() // getProducts special method is automatically created when the association User.hasMany(Product) is set
-//     // Product.findAll()
-//         .then(result => {
-//             res.render('admin/products', {
-//                 prods: result,
-//                 pageTitle: "Admin Products",
-//                 path: '/admin/products'
-//             });            
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         });
+    // req.user.getProducts() // getProducts special method is automatically created when the association User.hasMany(Product) is set
+    // Product.findAll()
+    Product.fetchAll()
+        .then(result => {
+            res.render('admin/products', {
+                prods: result,
+                pageTitle: "Admin Products",
+                path: '/admin/products'
+            });            
+        })
+        .catch(err => {
+            console.log(err);
+        });
 
-//     // const products = Product.fetchAll();
-//     // Product.fetchAll((products) => {
-//     //     res.render('admin/products', {
-//     //         prods: products,
-//     //         pageTitle: "Admin Products",
-//     //         path: '/admin/products'
-//     //     });
-//     // });
+    // const products = Product.fetchAll();
+    // Product.fetchAll((products) => {
+    //     res.render('admin/products', {
+    //         prods: products,
+    //         pageTitle: "Admin Products",
+    //         path: '/admin/products'
+    //     });
+    // });
 
-// }
+}

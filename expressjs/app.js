@@ -5,7 +5,7 @@ const express = require('express');
 
 // routes
 const adminRoutes = require('./routes/admin');
-// const shopRoutes = require('./routes/shop');
+const shopRoutes = require('./routes/shop');
 
 // error controller
 const errorController = require('./controllers/error');
@@ -71,7 +71,7 @@ app.use((req, res, next) => {
 
 // to use routes
 app.use('/admin', adminRoutes);
-// app.use(shopRoutes);
+app.use(shopRoutes);
 
 // db.execute("select * from products")
 //     .then(result => {
