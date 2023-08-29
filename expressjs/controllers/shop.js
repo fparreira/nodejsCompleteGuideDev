@@ -111,23 +111,35 @@ exports.getIndex = (req, res, next) => {
 exports.getCart = (req, res, next) => {
 
     req.user.getCart()
-        .then(cart => {
-            // console.log(cart.getProducts());
-            return cart.getProducts()
-            .then(products => {
-                res.render('shop/cart', {
-                    path: '/cart',
-                    pageTitle: "Your Cart",
-                    products: products
-                });
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        .then(products => {
+            res.render('shop/cart', {
+                path: '/cart',
+                pageTitle: "Your Cart",
+                products: products
+            });
         })
         .catch(err => {
             console.log(err);
-        })
+        });
+
+
+        // .then(cart => {
+        //     // console.log(cart.getProducts());
+        //     return cart.getProducts()
+        //     .then(products => {
+        //         res.render('shop/cart', {
+        //             path: '/cart',
+        //             pageTitle: "Your Cart",
+        //             products: products
+        //         });
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //     })
+        // })
+        // .catch(err => {
+        //     console.log(err);
+        // })
 
 
 
@@ -162,52 +174,68 @@ exports.getCart = (req, res, next) => {
 exports.postCart = (req, res, next) => {
 
     const prodId = req.body.productId;
-    let fetchedCart;
-    let newQuantity = 1;
 
-    req.user.getCart()
-    .then(cart => {
-
-        fetchedCart = cart; // to access the cart object later
-
-        // check if it's already on the cart
-        return cart.getProducts({where: {id: prodId}})
-
-    })
-    .then(products => { // then of the return above (products on the cart)
-
-        let product;
-
-        if(products.length > 0){ // the product is already in the cart
-            product = products[0]; // the product in the cart
-        }
-
-        if (product) { //check if the product is in the cart, otherwise this is undefined / false
-            
-            // the product is already in the cart
-
-            const oldQuantity = product.cartItem.quantity;
-            newQuantity = oldQuantity + 1;
-            
-            return product;
-            
-        }
-
-        return Product.findByPk(prodId) // the product isn't in the cart yet
-
-    })
+    Product.findById(prodId)
     .then(product => {
-        // add the product in the cart 
-        return fetchedCart.addProduct(product, {
-            through: {quantity: newQuantity}
-        });
+        return req.user.addToCart(product);
     })
-    .then(() => {
+    .then(result => {
+        console.log(result);
         res.redirect('/cart');
     })
     .catch(err => {
         console.log(err);
-    });
+    })
+
+
+
+
+    // let fetchedCart;
+    // let newQuantity = 1;
+
+    // req.user.getCart()
+    // .then(cart => {
+
+    //     fetchedCart = cart; // to access the cart object later
+
+    //     // check if it's already on the cart
+    //     return cart.getProducts({where: {id: prodId}})
+
+    // })
+    // .then(products => { // then of the return above (products on the cart)
+
+    //     let product;
+
+    //     if(products.length > 0){ // the product is already in the cart
+    //         product = products[0]; // the product in the cart
+    //     }
+
+    //     if (product) { //check if the product is in the cart, otherwise this is undefined / false
+            
+    //         // the product is already in the cart
+
+    //         const oldQuantity = product.cartItem.quantity;
+    //         newQuantity = oldQuantity + 1;
+            
+    //         return product;
+            
+    //     }
+
+    //     return Product.findByPk(prodId) // the product isn't in the cart yet
+
+    // })
+    // .then(product => {
+    //     // add the product in the cart 
+    //     return fetchedCart.addProduct(product, {
+    //         through: {quantity: newQuantity}
+    //     });
+    // })
+    // .then(() => {
+    //     res.redirect('/cart');
+    // })
+    // .catch(err => {
+    //     console.log(err);
+    // });
 
     // Product.findById(prodId, (product) => {
     //     // console.log(product);
@@ -219,30 +247,38 @@ exports.postCart = (req, res, next) => {
 
 };
 
-exports.postCartDeleteProdut = (req, res, next) => {
+exports.postCartDeleteProduct = (req, res, next) => {
 
     const prodId = req.body.productId;
 
     //access to the cart
     req.user.getCart()
-        .then(cart =>{
+    .then()
+    .then(result => {
+        console.log(result);
+        res.redirect("/cart");
+    })
+    .catch(err => {
+        console.log(err);
+    })
+        // .then(cart =>{
             
-            // find and return the product to destroy
-            return cart.getProducts({where: {id: prodId}});
+        //     // find and return the product to destroy
+        //     return cart.getProducts({where: {id: prodId}});
 
-        })
-        .then(products => {
+        // })
+        // .then(products => {
 
-            const product = products[0]; //access the product
-            return product.cartItem.destroy(); // delete the product in the cart and return it
+        //     const product = products[0]; //access the product
+        //     return product.cartItem.destroy(); // delete the product in the cart and return it
 
-        })
-        .then(result => {
-            res.redirect("/cart");
-        })
-        .catch(err => {
-            console.log(err);
-        })
+        // })
+        // .then(result => {
+        //     res.redirect("/cart");
+        // })
+        // .catch(err => {
+        //     console.log(err);
+        // })
 
 
 

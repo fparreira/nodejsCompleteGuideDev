@@ -11,6 +11,8 @@ const shopRoutes = require('./routes/shop');
 const errorController = require('./controllers/error');
 const mongoConnect = require('./utils/database').mongoConnect;
 
+const User = require('./models/user');
+
 // import handlebars
 // const expressHbs = require('express-handlebars');
 
@@ -65,7 +67,17 @@ app.use((req, res, next) => {
     //         console.log(err);
     //     });
 
-    next();    
+    // const myUser = new User('fparreira', 'fparreira@gmail.com');
+    // myUser.save();
+
+    User.findById("64eb5535fed601eca89b12df")
+    .then(user => {
+        req.user = new User(user.name, user.email, user.cart, user._id);
+        next();
+    })
+    .catch(err => {
+        console.log(err);
+    })
 
 });
 
@@ -135,6 +147,8 @@ app.use(errorController.pageNotFound);
 //     .catch(error => {
 //         console.log(error);
 //     });
+
+
 
 mongoConnect(() => {
 
