@@ -24,7 +24,14 @@ exports.postAddProduct = (req, res, next) => {
     //     description: description
     // })
 
-    const product = new Product(title, price, description, imageUrl, null, req.user._id);
+    const product = new Product({
+        title: title,
+        price: price,
+        description: description,
+        imageUrl: imageUrl
+    });
+
+    // const product = new Product(title, price, description, imageUrl, null, req.user._id);
 
     product.save()
     .then(result => {
@@ -104,11 +111,30 @@ exports.postEditProduct = (req, res, next) => {
     const updatedDescription = req.body.description;
     const updatedPrice = req.body.price;
 
-    const product = new Product(updatedTitle, updatedPrice, updatedDescription, updatedImageUrl, id);
+    // const product = new Product(updatedTitle, updatedPrice, updatedDescription, updatedImageUrl, id);
+
+    Product.findById(id)
+    .then(product => {
+
+        product.title = updatedTitle;
+        product.price = updatedPrice;
+        product.description = updatedDescription;
+        product.imageUrl = updatedImageUrl;
+        
+        return product.save();
+
+    })
+    .then(result => {
+        console.log("Updated product !");
+        res.redirect("/admin/products");
+    })
+    .catch(err => {
+        console.log(err);
+    })
 
 
     // Product.findByPk(id)
-    product.save()
+    // product.save()
         // .then(resultProduct => {
         //     // resultProduct.title = updatedTitle;
         //     // resultProduct.imageUrl = updatedImageUrl;
@@ -118,14 +144,14 @@ exports.postEditProduct = (req, res, next) => {
         //     // return a promise
         //     return resultProduct.save();
         // })
-        .then(result => {
-            console.log("Updated product !");
-            res.redirect("/admin/products");
-        })
-        // catch errors from findByPk() and save() promises
-        .catch(err => {
-            console.log(err);
-        });
+        // .then(result => {
+        //     console.log("Updated product !");
+        //     res.redirect("/admin/products");
+        // })
+        // // catch errors from findByPk() and save() promises
+        // .catch(err => {
+        //     console.log(err);
+        // });
 
     // const prod = new Product(id, title, imageUrl, description, price);
     // prod.save();
@@ -156,7 +182,8 @@ exports.getProducts = (req, res, next) => {
 
     // req.user.getProducts() // getProducts special method is automatically created when the association User.hasMany(Product) is set
     // Product.findAll()
-    Product.fetchAll()
+    // Product.fetchAll()
+    Product.find()
         .then(result => {
             res.render('admin/products', {
                 prods: result,

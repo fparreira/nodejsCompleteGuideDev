@@ -12,9 +12,9 @@ const shopRoutes = require('./routes/shop');
 
 // error controller
 const errorController = require('./controllers/error');
-const mongoConnect = require('./utils/database').mongoConnect;
+// const mongoConnect = require('./utils/database').mongoConnect;
 
-const User = require('./models/user');
+// const User = require('./models/user');
 
 // import handlebars
 // const expressHbs = require('express-handlebars');
@@ -58,31 +58,31 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // register a middleware to use the user anywhere in the app
-app.use((req, res, next) => {
-    // User.findByPk(1)
-    //     .then(result => {
+// app.use((req, res, next) => {
+//     // User.findByPk(1)
+//     //     .then(result => {
 
-    //         req.user = result;
-    //         next();
+//     //         req.user = result;
+//     //         next();
 
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //     });
+//     //     })
+//     //     .catch(err => {
+//     //         console.log(err);
+//     //     });
 
-    // const myUser = new User('fparreira', 'fparreira@gmail.com');
-    // myUser.save();
+//     // const myUser = new User('fparreira', 'fparreira@gmail.com');
+//     // myUser.save();
 
-    User.findById("64eb5535fed601eca89b12df")
-    .then(user => {
-        req.user = new User(user.name, user.email, user.cart, user._id);
-        next();
-    })
-    .catch(err => {
-        console.log(err);
-    })
+//     User.findById("64eb5535fed601eca89b12df")
+//     .then(user => {
+//         req.user = new User(user.name, user.email, user.cart, user._id);
+//         next();
+//     })
+//     .catch(err => {
+//         console.log(err);
+//     })
 
-});
+// });
 
 // to use routes
 app.use('/admin', adminRoutes);
@@ -158,7 +158,7 @@ app.use(errorController.pageNotFound);
 // })
 
 // connect to database
-mongoose.connect("mongodb+srv://fparreira:EjZrhi2gqj0ddvKL@cluster0.atmcgwv.mongodb.net/")
+mongoose.connect("mongodb+srv://fparreira:EjZrhi2gqj0ddvKL@cluster0.atmcgwv.mongodb.net/shop")
 .then(result => {
 
     app.listen(3000);
