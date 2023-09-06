@@ -3,6 +3,9 @@
 // import express js
 const express = require('express');
 
+// import mongoose
+const mongoose = require('mongoose');
+
 // routes
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -148,10 +151,19 @@ app.use(errorController.pageNotFound);
 //         console.log(error);
 //     });
 
+// mongoConnect(() => {
 
+//     app.listen(3000);
 
-mongoConnect(() => {
+// })
+
+// connect to database
+mongoose.connect("mongodb+srv://fparreira:EjZrhi2gqj0ddvKL@cluster0.atmcgwv.mongodb.net/")
+.then(result => {
 
     app.listen(3000);
 
 })
+.catch(err => {
+    console.log(err);
+});
