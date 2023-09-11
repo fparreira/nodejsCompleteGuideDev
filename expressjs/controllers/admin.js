@@ -24,6 +24,8 @@ exports.postAddProduct = (req, res, next) => {
     //     description: description
     // })
 
+    // console.log(req.user);
+
     const product = new Product({
         title: title,
         price: price,
@@ -186,7 +188,9 @@ exports.getProducts = (req, res, next) => {
     // Product.findAll()
     // Product.fetchAll()
     Product.find()
+        // .populate('userId') // retrieve the intire collection associated User
         .then(result => {
+            // console.log(result);
             res.render('admin/products', {
                 prods: result,
                 pageTitle: "Admin Products",

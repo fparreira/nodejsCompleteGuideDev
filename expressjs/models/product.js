@@ -24,7 +24,7 @@ const productSchema = new Schema({
         required: true
     },
     userId: {
-        type: mongoose.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User', // name of the model exported
         required: true
     }

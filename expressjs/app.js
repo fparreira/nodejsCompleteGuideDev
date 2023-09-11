@@ -73,7 +73,7 @@ app.use((req, res, next) => {
     // const myUser = new User('fparreira', 'fparreira@gmail.com');
     // myUser.save();
 
-    User.findById("64fe254a5a9bb126abf5767c")
+    User.findById("64febce6f1c9fece6acb53f8")
     .then(user => {
         // req.user = new User(user.name, user.email, user.cart, user._id);
         req.user = user;

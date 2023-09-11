@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     },
     cart: {
         items: [{
-            productId: {type: mongoose.ObjectId, ref: 'Product', required: true}, // ref is the name of the model exported
+            productId: {type: Schema.Types.ObjectId, ref: 'Product', required: true}, // ref is the name of the model exported
             quantity: {type: Number, required: true}
         }],
     }
