@@ -22,6 +22,11 @@ const productSchema = new Schema({
     imageUrl: {
         type: String,
         required: true
+    },
+    userId: {
+        type: mongoose.ObjectId,
+        ref: 'User', // name of the model exported
+        required: true
     }
 
 });

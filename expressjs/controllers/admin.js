@@ -28,7 +28,8 @@ exports.postAddProduct = (req, res, next) => {
         title: title,
         price: price,
         description: description,
-        imageUrl: imageUrl
+        imageUrl: imageUrl,
+        userId: req.user
     });
 
     // const product = new Product(title, price, description, imageUrl, null, req.user._id);
@@ -166,7 +167,8 @@ exports.postDeleteProduct = (req, res, next) => {
     // .then(productFound => {
     //     return productFound.destroy();
     // })
-    Product.deleteById(prodId)
+    // Product.deleteById(prodId)
+    Product.findByIdAndRemove(prodId)
     .then(() => {
         res.redirect('/admin/products');
         console.log('product deleted');
