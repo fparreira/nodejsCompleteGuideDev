@@ -116,7 +116,7 @@ exports.getIndex = (req, res, next) => {
 
 exports.getCart = (req, res, next) => {
 
-    req.user.getCart()
+    req.user.populate('cart.items.productId')
         .then(products => {
             res.render('shop/cart', {
                 path: '/cart',
@@ -128,6 +128,7 @@ exports.getCart = (req, res, next) => {
             console.log(err);
         });
 
+}
 
         // .then(cart => {
         //     // console.log(cart.getProducts());
@@ -173,9 +174,7 @@ exports.getCart = (req, res, next) => {
 
     // });
 
-
-
-};
+// };
 
 exports.postCart = (req, res, next) => {
 
