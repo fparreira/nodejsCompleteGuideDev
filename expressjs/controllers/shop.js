@@ -116,8 +116,13 @@ exports.getIndex = (req, res, next) => {
 
 exports.getCart = (req, res, next) => {
 
-    req.user.populate('cart.items.productId')
+    req.user
+        .populate('cart.items.productId')
+        .execPopulate()
         .then(products => {
+
+            console.log(products);
+
             res.render('shop/cart', {
                 path: '/cart',
                 pageTitle: "Your Cart",
