@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Order = require('../models/order');
 
 // const products = [];
 
@@ -191,7 +192,7 @@ exports.postCart = (req, res, next) => {
         return req.user.addToCart(product);
     })
     .then(result => {
-        console.log(result);
+        // console.log(result);
         res.redirect('/cart');
     })
     .catch(err => {
@@ -305,8 +306,19 @@ exports.postCartDeleteProduct = (req, res, next) => {
 
 exports.postOrder = (req, res, next) => {
 
+    const order = new Order({
+        
+        user: {
+            name: req.user.name,
+            userId: req.user //mongoose will catch the id automatically
+        },
+
+        
+
+    });
+
     // variable created to use later, to access cart object
-    let fetchedCart;
+    // let fetchedCart;
 
     req.user.addOrder()
         .then(result => {

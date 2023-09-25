@@ -58,6 +58,37 @@ UserSchema.methods.removeFromCart = function(productId){
 
 }
 
+UserSchema.methods.addOrder = function(){
+
+    const db = getDb();
+
+    return this.getCart()
+    .then(products => {
+
+        const orders = {
+            items: products,
+            user: {
+                _id: new ObjectId(this._id),
+                name: this.name
+            }
+        };
+
+        return db.collection('orders').insertOne(orders)
+
+    })        
+    .then(result => {
+
+        this.cart = {items: []};
+
+        return db.collection('users').updateOne({_id: new ObjectId(this._id)}, {$set: {cart: {items: []}}} );
+
+    })
+    .catch(err => {
+        console.log(err);
+    });
+
+}
+
 // UserSchema.methods.getCart = function(){
 
 //     const productIds = this.cart.items.map(i => { return i.productId });
