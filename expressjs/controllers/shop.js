@@ -117,12 +117,12 @@ exports.getIndex = (req, res, next) => {
 exports.getCart = (req, res, next) => {
 
     req.user
-        // .populate('cart.items.productId')
-        .populate('cart.items')
-        .execPopulate()
-        .then(products => {
+        .populate(['cart.items.productId'])
+        .then(user => {
 
-            console.log(products);
+            // console.log(user.cart.items);
+
+            const products = user.cart.items;
 
             res.render('shop/cart', {
                 path: '/cart',
@@ -263,7 +263,7 @@ exports.postCartDeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;
 
     //access to the cart
-    req.user.deleteItemFromCart(prodId)
+    req.user.removeFromCart(prodId)
     .then(result => {
         console.log(result);
         res.redirect("/cart");
