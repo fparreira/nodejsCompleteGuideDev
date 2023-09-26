@@ -306,27 +306,51 @@ exports.postCartDeleteProduct = (req, res, next) => {
 
 exports.postOrder = (req, res, next) => {
 
-    const order = new Order({
+    req.user
+        .populate(['cart.items.productId'])
+        .then(user => {
+
+            //will be used map() function because order model is different that products array below
+            const products = user.cart.items.map(i => {
+                //is used the spread operador "..." and the special mongoose word _doc to retrieve de full object, not only product ID
+                return {quantity: i.quantity, product: {...i.productId._doc}};
+            });
+
+            const order = new Order({
         
-        user: {
-            name: req.user.name,
-            userId: req.user //mongoose will catch the id automatically
-        },
+                user: {
+                    name: req.user.name,
+                    userId: req.user //mongoose will catch the id automatically
+                },
 
+                products: products                
         
+            });
 
-    });
+            return order.save();
 
-    // variable created to use later, to access cart object
-    // let fetchedCart;
-
-    req.user.addOrder()
+        })
         .then(result => {
+            return req.user.clearCart();
+        })
+        .then(() => {
             res.redirect("/orders");
         })
         .catch(err => {
             console.log(err);
-        })
+        });
+
+
+    // variable created to use later, to access cart object
+    // let fetchedCart;
+
+    // req.user.addOrder()
+    //     .then(result => {
+    //         res.redirect("/orders");
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     })
 
     
     // req.user.getCart()
@@ -372,8 +396,9 @@ exports.postOrder = (req, res, next) => {
 exports.getOrders = (req, res, next) => {
 
     // req.user.getOrders({include: ['products']})
-    req.user.getOrders()
-    .then(orders => {
+
+    Order.find({ "user.userId": req.user._id })
+        .then(orders => {
         // console.log(orders);
 
         res.render('shop/orders', {

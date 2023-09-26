@@ -58,6 +58,12 @@ UserSchema.methods.removeFromCart = function(productId){
 
 }
 
+UserSchema.methods.clearCart = function(){
+    this.cart = {items: []};
+
+    return this.save();
+}
+
 UserSchema.methods.addOrder = function(){
 
     const db = getDb();
