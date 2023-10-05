@@ -88,6 +88,8 @@ exports.getProduct = (req, res, next) => {
 
 exports.getIndex = (req, res, next) => {
 
+    // console.log('isLoggedIn = ' + isLoggedIn);    
+
     // Product.findAll()
     // Product.fetchAll()
     Product.find()
@@ -96,7 +98,7 @@ exports.getIndex = (req, res, next) => {
                 prods: products,
                 pageTitle: "Shop",
                 path: '/',
-                isAuthenticated: req.isLoggedIn
+                isAuthenticated: isLoggedIn
             });
         })
         .catch(err => {
