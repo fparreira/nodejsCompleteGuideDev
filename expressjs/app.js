@@ -6,6 +6,13 @@ const express = require('express');
 // import mongoose
 const mongoose = require('mongoose');
 
+// import express session
+const session = require('express-session');
+
+// import mongodb session 
+// is need to pass a session object. in case is passed the express session
+const MongoDBStore = require('connect-mongodb-session')(session);
+
 // routes
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -16,6 +23,9 @@ const errorController = require('./controllers/error');
 // const mongoConnect = require('./utils/database').mongoConnect;
 
 const User = require('./models/user');
+
+// variable to mongodb connection
+const MONGODB_URI = "mongodb+srv://fparreira:EjZrhi2gqj0ddvKL@cluster0.atmcgwv.mongodb.net/shop";
 
 // import handlebars
 // const expressHbs = require('express-handlebars');
@@ -40,6 +50,12 @@ const bodyParser = require('body-parser');
 // express init
 const app = express();
 
+// session store mongodb init
+const store = new MongoDBStore({
+    uri: MONGODB_URI,
+    collection: 'sessions',
+});
+
 // template
 // app.engine('hbs', expressHbs({
 //         layoutsDir: "views/layouts",
@@ -57,6 +73,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // public folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+// init the session
+// resave means that the session isn't save in every request but only if the session is changed
+// saveUnitialized means that the session isn't save when nothing is changed
+// store is the name of store to save data, in case is used the mongodbstore inicialized above
+app.use(session({secret: 'my secret', resave: false, saveUninitialized:false, store: store }));
+
 
 // register a middleware to use the user anywhere in the app
 app.use((req, res, next) => {
@@ -161,7 +184,7 @@ app.use(errorController.pageNotFound);
 // })
 
 // connect to database
-mongoose.connect("mongodb+srv://fparreira:EjZrhi2gqj0ddvKL@cluster0.atmcgwv.mongodb.net/shop")
+mongoose.connect(MONGODB_URI)
 .then(result => {
 
     User.findOne()
