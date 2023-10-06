@@ -82,7 +82,7 @@ app.use(session({secret: 'my secret', resave: false, saveUninitialized:false, st
 
 
 // register a middleware to use the user anywhere in the app
-app.use((req, res, next) => {
+// app.use((req, res, next) => {
     // User.findByPk(1)
     //     .then(result => {
 
@@ -97,17 +97,19 @@ app.use((req, res, next) => {
     // const myUser = new User('fparreira', 'fparreira@gmail.com');
     // myUser.save();
 
-    User.findById("64febce6f1c9fece6acb53f8")
-    .then(user => {
-        // req.user = new User(user.name, user.email, user.cart, user._id);
-        req.user = user;
-        next();
-    })
-    .catch(err => {
-        console.log(err);
-    })
+    // User.findById("64febce6f1c9fece6acb53f8")
+    // .then(user => {
+    //     // req.user = new User(user.name, user.email, user.cart, user._id);
+    //     req.user = user;
+    //     next();
+    // })
+    // .catch(err => {
+    //     console.log(err);
+    // })
 
-});
+    
+
+// });
 
 // to use routes
 app.use('/admin', adminRoutes);
@@ -187,24 +189,24 @@ app.use(errorController.pageNotFound);
 mongoose.connect(MONGODB_URI)
 .then(result => {
 
-    User.findOne()
-    .then(user => {
+    // User.findOne()
+    // .then(user => {
 
-        if(!user){
+    //     if(!user){
 
-            const user = new User({
-                name: 'Fernando',
-                email: 'fparreira@gmail.com',
-                cart: {
-                    items: []
-                }
-            });
+    //         const user = new User({
+    //             name: 'Fernando',
+    //             email: 'fparreira@gmail.com',
+    //             cart: {
+    //                 items: []
+    //             }
+    //         });
 
-            user.save();
+    //         user.save();
 
-        }
+    //     }
 
-    })
+    // })
 
 
 

@@ -90,6 +90,8 @@ exports.getIndex = (req, res, next) => {
 
     // console.log('isLoggedIn = ' + isLoggedIn);    
 
+    console.log(req.session.user);
+
     // Product.findAll()
     // Product.fetchAll()
     Product.find()
@@ -98,7 +100,7 @@ exports.getIndex = (req, res, next) => {
                 prods: products,
                 pageTitle: "Shop",
                 path: '/',
-                isAuthenticated: isLoggedIn
+                // isAuthenticated: isLoggedIn
             });
         })
         .catch(err => {
