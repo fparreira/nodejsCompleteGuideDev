@@ -88,9 +88,7 @@ exports.getProduct = (req, res, next) => {
 
 exports.getIndex = (req, res, next) => {
 
-    // console.log('isLoggedIn = ' + isLoggedIn);    
-
-    console.log(req.session.user);
+    // console.log(req.session.user);
 
     // Product.findAll()
     // Product.fetchAll()
