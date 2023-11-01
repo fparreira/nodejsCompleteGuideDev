@@ -10,7 +10,7 @@ exports.getLogin = (req, res, next) => {
 
     const isLoggedIn = req.session.user ? true : false;
 
-    // console.log(isLoggedIn);
+    console.log(isLoggedIn);
 
     // console.log(req.session.isLoggedInnn);
 
