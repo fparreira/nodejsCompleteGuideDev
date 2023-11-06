@@ -6,11 +6,14 @@ exports.getLogin = (req, res, next) => {
 
     // const isLoggedIn = req.get('Cookie').split('=')[1].trim();
 
-    console.log(req.session.user);
+    console.log(req.session.userName);
+
+    // console.log(req.session.isLoggedIn);
 
     const isLoggedIn = req.session.user ? true : false;
+    req.session.isLoggedIn = isLoggedIn;
 
-    console.log(isLoggedIn);
+    // console.log(isLoggedIn);
 
     // console.log(req.session.isLoggedInnn);
 
@@ -28,26 +31,32 @@ exports.postLogin = (req, res, next) => {
     // req.isLoggedIn = true;
     // res.setHeader('Set-Cookie', 'loggedIn=true')
 
-    // req.session.isLoggedInnn = true;
+    // req.session.isLoggedIn = true;
 
     User.findById("64febce6f1c9fece6acb53f8")
     .then(user => {
 
-        console.log(user.name);
+        const userName = user.name;
 
-        // req.user = new User(user.name, user.email, user.cart, user._id);
-        req.session.user = user.name;
-        // next();
+        console.log(userName);
 
-        // req.session.save();
+        req.session.user = user;
+
+        console.log(req.sessionID);
+        console.log(req.session);
+
+        req.session.save();
 
     })
     .catch(err => {
         console.log(err);
     })
 
+
+    // console.log(req.session);
+
     
-    res.redirect('/login');
+    res.redirect('/');
    
 
 };

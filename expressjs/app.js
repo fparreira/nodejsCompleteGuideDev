@@ -78,7 +78,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // resave means that the session isn't save in every request but only if the session is changed
 // saveUnitialized means that the session isn't save when nothing is changed
 // store is the name of store to save data, in case is used the mongodbstore inicialized above
-app.use(session({secret: 'my secret', resave: false, saveUninitialized:false, store: store }));
+app.use(session({secret: 'my secret', resave: false, saveUninitialized:true, store: store }));
 
 
 // register a middleware to use the user anywhere in the app
