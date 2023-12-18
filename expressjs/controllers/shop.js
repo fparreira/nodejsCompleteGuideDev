@@ -89,6 +89,7 @@ exports.getProduct = (req, res, next) => {
 exports.getIndex = (req, res, next) => {
 
     // console.log(req.session.user);
+    console.log(req.session);
 
     // Product.findAll()
     // Product.fetchAll()

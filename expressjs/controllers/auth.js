@@ -6,12 +6,12 @@ exports.getLogin = (req, res, next) => {
 
     // const isLoggedIn = req.get('Cookie').split('=')[1].trim();
 
-    console.log(req.session.userName);
+    console.log(req.session);
 
     // console.log(req.session.isLoggedIn);
 
     const isLoggedIn = req.session.user ? true : false;
-    req.session.isLoggedIn = isLoggedIn;
+    // req.session.isLoggedIn = isLoggedIn;
 
     // console.log(isLoggedIn);
 
@@ -42,6 +42,9 @@ exports.postLogin = (req, res, next) => {
 
         req.session.user = user;
 
+        // const isLoggedIn = req.session.user ? true : false;
+        req.session.isLoggedIn = true;        
+
         console.log(req.sessionID);
         console.log(req.session);
 
@@ -54,8 +57,7 @@ exports.postLogin = (req, res, next) => {
 
 
     // console.log(req.session);
-
-    
+   
     res.redirect('/');
    
 
